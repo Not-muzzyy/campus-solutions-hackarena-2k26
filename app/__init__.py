@@ -13,8 +13,14 @@ socketio = SocketIO(cors_allowed_origins="*", async_mode="threading")
 
 def create_app() -> Flask:
     app = Flask(__name__)
-    app.config["SECRET_KEY"] = os.getenv("SECRET_KEY", "change-me-in-env")
-    app.config["MONGO_URI"] = os.getenv("MONGO_URI", "")
+
+    app.config['SECRET_KEY'] = os.getenv("SECRET_KEY", "change-me-in-env")
+    app.config['MONGO_URI'] = os.getenv("MONGO_URI", "")
+
+    from app.routes.auth import auth_bp
+    from app.routes.student import student_bp
+    from app.routes.faculty import faculty_bp
+    from app.routes.admin import admin_bp
 
     app.register_blueprint(auth_bp)
     app.register_blueprint(student_bp)
